@@ -531,6 +531,35 @@ function WithdrawTab({ eagles, amount, setAmount, method, setMethod }: {
         ))}
       </div>
 
+      {method === "gaijin" && (
+        <div className="mt-4 animate-fade-in-up">
+          <div className="p-4 bg-yellow-900/15 border border-yellow-700/30 rounded-sm space-y-3">
+            <div className="flex items-center gap-2 mb-1">
+              <Icon name="Crosshair" size={15} className="text-yellow-500" />
+              <span className="font-oswald text-sm text-yellow-500 tracking-widest">ИНСТРУКЦИЯ GAIJIN</span>
+            </div>
+            {[
+              { step: "1", text: "Запусти War Thunder и войди в свой аккаунт" },
+              { step: "2", text: "Твой никнейм отображается в правом верхнем углу главного экрана — это имя над иконкой профиля" },
+              { step: "3", text: "Также никнейм можно найти в «Профиль» → «Личные данные» → поле «Позывной»" },
+              { step: "4", text: "Скопируй точный позывной (с учётом регистра и символов) и введи его ниже" },
+              { step: "5", text: "После отправки заявки орлы поступят на твой Gaijin-аккаунт в течение 24 часов" },
+            ].map((s) => (
+              <div key={s.step} className="flex items-start gap-3">
+                <div className="w-5 h-5 rounded-sm bg-yellow-700/20 border border-yellow-600/30 flex items-center justify-center shrink-0 mt-0.5">
+                  <span className="text-[10px] font-oswald text-yellow-500">{s.step}</span>
+                </div>
+                <span className="text-xs text-muted-foreground leading-relaxed">{s.text}</span>
+              </div>
+            ))}
+            <div className="flex items-start gap-2 pt-1 border-t border-yellow-700/20 mt-2">
+              <Icon name="AlertTriangle" size={13} className="text-yellow-600 shrink-0 mt-0.5" />
+              <span className="text-xs text-yellow-600">Указывай именно <span className="text-yellow-400 font-oswald">никнейм (позывной)</span> игрока, а не почту или логин от аккаунта</span>
+            </div>
+          </div>
+        </div>
+      )}
+
       {method === "pixelstorm" && (
         <div className="mt-4 animate-fade-in-up">
           <div className="p-4 bg-blue-900/20 border border-blue-700/40 rounded-sm space-y-3">
@@ -539,10 +568,11 @@ function WithdrawTab({ eagles, amount, setAmount, method, setMethod }: {
               <span className="font-oswald text-sm text-blue-400 tracking-widest">ИНСТРУКЦИЯ PIXEL STORM</span>
             </div>
             {[
-              { step: "1", text: "Зайди в игру War Thunder и открой вкладку «Pixel Storm» в главном меню" },
-              { step: "2", text: "Перейди в раздел «Получить орлов» → «Промокод / Внешний перевод»" },
-              { step: "3", text: "Введи свой никнейм ниже — он должен совпадать с именем аккаунта в игре" },
-              { step: "4", text: "Нажми «Вывести орлов» — зачисление произойдёт автоматически в течение 24 часов" },
+              { step: "1", text: "Запусти War Thunder и войди в свой аккаунт" },
+              { step: "2", text: "Твой никнейм виден в правом верхнем углу главного экрана над иконкой профиля" },
+              { step: "3", text: "Также найти его можно в «Профиль» → «Личные данные» → поле «Позывной»" },
+              { step: "4", text: "Введи точный никнейм ниже и выбери сумму для вывода" },
+              { step: "5", text: "Нажми «Вывести орлов» — зачисление через Pixel Storm произойдёт в течение 24 часов" },
             ].map((s) => (
               <div key={s.step} className="flex items-start gap-3">
                 <div className="w-5 h-5 rounded-sm bg-blue-700/30 border border-blue-600/40 flex items-center justify-center shrink-0 mt-0.5">
@@ -551,6 +581,10 @@ function WithdrawTab({ eagles, amount, setAmount, method, setMethod }: {
                 <span className="text-xs text-muted-foreground leading-relaxed">{s.text}</span>
               </div>
             ))}
+            <div className="flex items-start gap-2 pt-1 border-t border-blue-700/30 mt-2">
+              <Icon name="AlertTriangle" size={13} className="text-yellow-600 shrink-0 mt-0.5" />
+              <span className="text-xs text-yellow-600">Указывай именно <span className="text-yellow-400 font-oswald">никнейм (позывной)</span> игрока, а не почту или логин от аккаунта</span>
+            </div>
           </div>
         </div>
       )}
