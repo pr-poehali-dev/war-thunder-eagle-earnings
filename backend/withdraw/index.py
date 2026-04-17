@@ -11,7 +11,7 @@ def handler(event: dict, context) -> dict:
             'statusCode': 200,
             'headers': {
                 'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+                'Access-Control-Allow-Methods': 'GET, POST, PUT, OPTIONS',
                 'Access-Control-Allow-Headers': 'Content-Type',
                 'Access-Control-Max-Age': '86400'
             },
@@ -86,6 +86,40 @@ def handler(event: dict, context) -> dict:
                 'statusCode': 200,
                 'headers': {'Access-Control-Allow-Origin': '*'},
                 'body': json.dumps({'requests': requests})
+            }
+
+        if event.get('httpMethod') == 'PUT':
+            raw_body = event.get('body') or '{}'
+            parsed = json.loads(raw_body) if isinstance(raw_body, str) else raw_body
+            body = json.loads(parsed) if isinstance(parsed, str) else parsed
+            request_id = int(body.get('id', 0))
+            new_status = body.get('status', '').strip()
+
+            if new_status not in ('pending', 'done', 'rejected'):
+                return {
+                    'statusCode': 400,
+                    'headers': {'Access-Control-Allow-Origin': '*'},
+                    'body': json.dumps({'error': 'Неверный статус'})
+                }
+
+            cur.execute(
+                "UPDATE withdraw_requests SET status = %s WHERE id = %s RETURNING id",
+                (new_status, request_id)
+            )
+            updated = cur.fetchone()
+            conn.commit()
+
+            if not updated:
+                return {
+                    'statusCode': 404,
+                    'headers': {'Access-Control-Allow-Origin': '*'},
+                    'body': json.dumps({'error': 'Заявка не найдена'})
+                }
+
+            return {
+                'statusCode': 200,
+                'headers': {'Access-Control-Allow-Origin': '*'},
+                'body': json.dumps({'success': True})
             }
 
     finally:
