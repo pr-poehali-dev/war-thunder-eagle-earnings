@@ -552,6 +552,16 @@ function WithdrawTab({ eagles, amount, setAmount, method, setMethod }: {
                 <span className="text-xs text-muted-foreground leading-relaxed">{s.text}</span>
               </div>
             ))}
+            <div className="mt-3 rounded-sm overflow-hidden border border-yellow-700/30 relative">
+              <img
+                src="https://cdn.poehali.dev/projects/443c2020-4607-4cb2-9b58-3f9bc1cb5cc3/files/45834ed6-2b0c-439a-9878-cb4233c1f25c.jpg"
+                alt="Где найти никнейм в War Thunder"
+                className="w-full object-cover"
+              />
+              <div className="absolute bottom-0 inset-x-0 bg-black/60 px-2 py-1 text-[9px] text-yellow-500 font-oswald tracking-wider text-center">
+                ПОЗЫВНОЙ — ПРАВЫЙ ВЕРХНИЙ УГОЛ ЭКРАНА
+              </div>
+            </div>
             <div className="flex items-start gap-2 pt-1 border-t border-yellow-700/20 mt-2">
               <Icon name="AlertTriangle" size={13} className="text-yellow-600 shrink-0 mt-0.5" />
               <span className="text-xs text-yellow-600">Указывай именно <span className="text-yellow-400 font-oswald">никнейм (позывной)</span> игрока, а не почту или логин от аккаунта</span>
@@ -581,6 +591,16 @@ function WithdrawTab({ eagles, amount, setAmount, method, setMethod }: {
                 <span className="text-xs text-muted-foreground leading-relaxed">{s.text}</span>
               </div>
             ))}
+            <div className="mt-3 rounded-sm overflow-hidden border border-blue-700/30 relative">
+              <img
+                src="https://cdn.poehali.dev/projects/443c2020-4607-4cb2-9b58-3f9bc1cb5cc3/files/45834ed6-2b0c-439a-9878-cb4233c1f25c.jpg"
+                alt="Где найти никнейм в War Thunder"
+                className="w-full object-cover"
+              />
+              <div className="absolute bottom-0 inset-x-0 bg-black/60 px-2 py-1 text-[9px] text-blue-400 font-oswald tracking-wider text-center">
+                ПОЗЫВНОЙ — ПРАВЫЙ ВЕРХНИЙ УГОЛ ЭКРАНА
+              </div>
+            </div>
             <div className="flex items-start gap-2 pt-1 border-t border-blue-700/30 mt-2">
               <Icon name="AlertTriangle" size={13} className="text-yellow-600 shrink-0 mt-0.5" />
               <span className="text-xs text-yellow-600">Указывай именно <span className="text-yellow-400 font-oswald">никнейм (позывной)</span> игрока, а не почту или логин от аккаунта</span>
