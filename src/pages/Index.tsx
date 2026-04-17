@@ -533,6 +533,30 @@ function WithdrawTab({ eagles, amount, setAmount, method, setMethod }: {
         ))}
       </div>
 
+      {method === "pixelstorm" && (
+        <div className="mt-4 animate-fade-in-up">
+          <div className="p-4 bg-blue-900/20 border border-blue-700/40 rounded-sm space-y-3">
+            <div className="flex items-center gap-2 mb-1">
+              <Icon name="Zap" size={15} className="text-blue-400" />
+              <span className="font-oswald text-sm text-blue-400 tracking-widest">ИНСТРУКЦИЯ PIXEL STORM</span>
+            </div>
+            {[
+              { step: "1", text: "Зайди в игру War Thunder и открой вкладку «Pixel Storm» в главном меню" },
+              { step: "2", text: "Перейди в раздел «Получить орлов» → «Промокод / Внешний перевод»" },
+              { step: "3", text: "Введи свой никнейм ниже — он должен совпадать с именем аккаунта в игре" },
+              { step: "4", text: "Нажми «Вывести орлов» — зачисление произойдёт автоматически в течение 24 часов" },
+            ].map((s) => (
+              <div key={s.step} className="flex items-start gap-3">
+                <div className="w-5 h-5 rounded-sm bg-blue-700/30 border border-blue-600/40 flex items-center justify-center shrink-0 mt-0.5">
+                  <span className="text-[10px] font-oswald text-blue-400">{s.step}</span>
+                </div>
+                <span className="text-xs text-muted-foreground leading-relaxed">{s.text}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
       <div className="mt-4 animate-fade-in-up delay-200">
         <label className="text-xs text-muted-foreground font-oswald tracking-widest block mb-2">
           НИКНЕЙМ В WAR THUNDER
