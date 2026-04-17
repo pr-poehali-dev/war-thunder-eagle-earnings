@@ -481,8 +481,6 @@ function WithdrawTab({ eagles, amount, setAmount, method, setMethod }: {
   const methods = [
     { id: "gaijin", label: "War Thunder (Gaijin)", icon: "Crosshair" },
     { id: "pixelstorm", label: "War Thunder Pixel Storm", icon: "Zap" },
-    { id: "steam", label: "Steam", icon: "Gamepad2" },
-    { id: "card", label: "Банковская карта", icon: "CreditCard" },
   ];
   const num = parseInt(amount) || 0;
   const nicknameOk = nickname.trim().length >= 3;
