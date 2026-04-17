@@ -468,6 +468,8 @@ function HistoryTab() {
   );
 }
 
+const WITHDRAW_URL = "https://functions.poehali.dev/a32193e6-9e21-42d9-8df2-0c6b58338b72";
+
 function WithdrawTab({ eagles, amount, setAmount, method, setMethod }: {
   eagles: number;
   amount: string;
@@ -477,6 +479,8 @@ function WithdrawTab({ eagles, amount, setAmount, method, setMethod }: {
 }) {
   const [nickname, setNickname] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const methods = [
     { id: "gaijin", label: "War Thunder (Gaijin)", icon: "Crosshair" },
@@ -485,6 +489,29 @@ function WithdrawTab({ eagles, amount, setAmount, method, setMethod }: {
   const num = parseInt(amount) || 0;
   const nicknameOk = nickname.trim().length >= 3;
   const canWithdraw = num >= 150 && num <= eagles && nicknameOk;
+
+  const handleSubmit = async () => {
+    if (!canWithdraw) return;
+    setLoading(true);
+    setError("");
+    try {
+      const res = await fetch(WITHDRAW_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ nickname: nickname.trim(), amount: num, method }),
+      });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        setSubmitted(true);
+      } else {
+        setError(data.error || "Ошибка при отправке заявки");
+      }
+    } catch {
+      setError("Нет соединения с сервером");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   if (submitted) {
     return (
@@ -656,12 +683,24 @@ function WithdrawTab({ eagles, amount, setAmount, method, setMethod }: {
         )}
       </div>
 
+      {error && (
+        <div className="mt-3 flex items-center gap-2 px-3 py-2 bg-red-900/20 border border-red-700/40 rounded-sm animate-fade-in-up">
+          <Icon name="AlertCircle" size={14} className="text-red-400 shrink-0" />
+          <span className="text-xs text-red-400">{error}</span>
+        </div>
+      )}
+
       <button
-        disabled={!canWithdraw}
-        onClick={() => canWithdraw && setSubmitted(true)}
-        className={`mt-4 w-full py-3 font-oswald text-sm tracking-widest rounded-sm border transition-all animate-fade-in-up delay-400 ${canWithdraw ? "bg-yellow-600 border-yellow-500 text-black hover:bg-yellow-500" : "bg-muted/20 border-border text-muted-foreground cursor-not-allowed"}`}
+        disabled={!canWithdraw || loading}
+        onClick={handleSubmit}
+        className={`mt-4 w-full py-3 font-oswald text-sm tracking-widest rounded-sm border transition-all animate-fade-in-up delay-400 flex items-center justify-center gap-2 ${canWithdraw && !loading ? "bg-yellow-600 border-yellow-500 text-black hover:bg-yellow-500" : "bg-muted/20 border-border text-muted-foreground cursor-not-allowed"}`}
       >
-        ВЫВЕСТИ ОРЛОВ
+        {loading ? (
+          <>
+            <Icon name="Loader" size={14} className="animate-spin" />
+            ОТПРАВКА...
+          </>
+        ) : "ВЫВЕСТИ ОРЛОВ"}
       </button>
     </div>
   );
